@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"net/mail"
 )
 
 // Sender is the interface that wraps the Send method.
@@ -108,9 +107,6 @@ func addAddress(list []string, addr string) []string {
 }
 
 func parseAddress(field string) (string, error) {
-	addr, err := mail.ParseAddress(field)
-	if err != nil {
-		return "", fmt.Errorf("gomail: invalid address %q: %v", field, err)
-	}
-	return addr.Address, nil
+	// FIXME: 簡易的なメールアドレス形式のチェックを行う
+	return field, nil
 }
