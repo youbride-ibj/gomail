@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"regexp"
 )
 
 // Sender is the interface that wraps the Send method.
@@ -107,6 +108,11 @@ func addAddress(list []string, addr string) []string {
 }
 
 func parseAddress(field string) (string, error) {
-	// FIXME: 簡易的なメールアドレス形式のチェックを行う
-	return field, nil
+	// 簡易的なメールアドレス形式のチェック
+	var email_pattern = `^(?i:[^ @"<>]+|".*")@(?i:[a-z1-9.])+.(?i:[a-z])+$`
+	var email_re = regexp.MustCompile(email_pattern)
+	if len(email_re.FindAllString(field, -1)) != 0 {
+		return field, nil
+	}
+	return "", fmt.Errorf("gomail: invalid address %q", field)
 }
