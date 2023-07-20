@@ -109,7 +109,7 @@ func addAddress(list []string, addr string) []string {
 
 func parseAddress(field string) (string, error) {
 	// 簡易的なメールアドレス形式のチェック
-	var email_pattern = `^(?i:[^ @"<>]+|".*")@(?i:[a-z1-9.])+.(?i:[a-z])+$`
+	var email_pattern = `^[\w\d._-]+@[\w\d_-]+\.[\w\d._-]+$`
 	var email_re = regexp.MustCompile(email_pattern)
 	if len(email_re.FindAllString(field, -1)) != 0 {
 		return field, nil
